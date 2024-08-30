@@ -169,6 +169,5 @@ Current Balance: %i€
     clear()
     print("""
     Balance:            %i€
-    Company Value:      %i€
-    Average sell price: %i€""" % (capital, company_value, avg_sell_price))
+    Company Value:      %i€""" % (capital, company_value))
     input("Press Enter to continue...")
