@@ -26,7 +26,6 @@ amount_excellence = 0
 capital = 100000
 current_round = 0
 sell_value = 1000
-list_sell_price = []
 
 # Clear Console
 def clear():
@@ -144,7 +143,6 @@ Current Balance: %i€
             loop_buy = 0
 
     # Production round
-    list_sell_price.append(sell_value)
     capital -= rent + total_price_workers + total_production_cost
     if capital < 0:
         print("haha loser, you're bankrupt")
@@ -162,7 +160,6 @@ Current Balance: %i€
         devaluation_count += 1
 
     company_value = capital + machine_actual_value
-    avg_sell_price = statistics.mean(list_sell_price)
     clear()
     print("""
     Balance:            %i€
