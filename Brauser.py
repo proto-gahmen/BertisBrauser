@@ -117,7 +117,13 @@ Current Balance: %i€
                 pass
 
         elif action == 2:
-            sell_value = int(input("Set a new sell value: "))
+            while True:
+                sell_value = int(input("Set a new sell value: "))
+                if sell_value <= 0:
+                    print("Sell value cannot be lower than or equal to 0")
+                else:
+                    break
+
         elif action == 3:
             print("""
             ####################
@@ -139,6 +145,7 @@ Current Balance: %i€
             """ % (amount_standard, amount_economy, amount_excellence, rent, total_price_workers, total_production_cost, prognosed_costs, total_production, sell_value, prognosed_profit))
             input("Press Enter to continue...")
             clear()
+
         elif action == 4:
             loop_buy = 0
 
