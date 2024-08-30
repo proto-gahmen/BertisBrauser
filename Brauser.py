@@ -28,8 +28,13 @@ current_round = 0
 sell_value = 1000
 list_sell_price = []
 
+# Clear Console
+def clear():
+    os.system("clear")
+
 while current_round != max_rounds:
     # Buy round
+    clear()
     loop_buy = 1
     while loop_buy == 1:
 
@@ -40,7 +45,8 @@ while current_round != max_rounds:
         prognosed_costs = rent + total_price_workers + total_production_cost
         prognosed_profit = total_production * sell_value - prognosed_costs
 
-        action = int(input("""####################
+        action = int(input("""
+####################
 
 Current Balance: %i€
 
@@ -51,6 +57,7 @@ Current Balance: %i€
 
 ####################
 """ %capital))
+        clear()
 
         if action == 1:
             buy_select_machine = int(input("""
@@ -69,19 +76,30 @@ Current Balance: %i€
                 if capital >= standard_price and capital - standard_price >= prognosed_costs + worker_cost + standard_production * pr_pallet:
                     capital -= standard_price
                     amount_standard += 1
+                    input("Press Enter to continue...")
+                    clear()
                 elif capital - standard_price <= prognosed_costs + worker_cost + standard_production * pr_pallet:
                     print("You are not able to maintain this machine with the available funds!")
+                    input("Press Enter to continue...")
+                    clear()
                 elif capital <= standard_price:
                     print("Insufficent funds!")
+                    input("Press Enter to continue...")
+                    clear()
 
             elif buy_select_machine == 2:
                 if capital >= economy_price and capital - economy_price >= prognosed_costs + worker_cost + economy_production * pr_pallet:
                     capital -= economy_price
                     amount_economy += 1
+                    clear()
                 elif capital - economy_price <= prognosed_costs + worker_cost + economy_production * pr_pallet:
                     print("You are not able to maintain this machine with the available funds!")
+                    input("Press Enter to continue...")
+                    clear()
                 elif capital <= economy_price:
                     print("Insufficent funds!")
+                    input("Press Enter to continue...")
+                    clear()
     
             elif buy_select_machine == 3:
                 if capital >= excellence_price and capital - excellence_price >= prognosed_costs + worker_cost + excellence_production * pr_pallet:
@@ -89,8 +107,12 @@ Current Balance: %i€
                     amount_excellence += 1
                 elif capital - excellence_price <= prognosed_costs + worker_cost + excellence_production * pr_pallet:
                     print("You are not able to maintain this machine with the available funds!")
+                    input("Press Enter to continue...")
+                    clear()
                 elif capital <= excellence_price:
                     print("Insufficent funds!")
+                    input("Press Enter to continue...")
+                    clear()
 
             elif buy_select_machine == 4:
                 pass
@@ -116,6 +138,8 @@ Current Balance: %i€
 
             ####################
             """ % (amount_standard, amount_economy, amount_excellence, rent, total_price_workers, total_production_cost, prognosed_costs, total_production, sell_value, prognosed_profit))
+            input("Press Enter to continue...")
+            clear()
         elif action == 4:
             loop_buy = 0
 
@@ -139,6 +163,9 @@ Current Balance: %i€
 
     company_value = capital + machine_actual_value
     avg_sell_price = statistics.mean(list_sell_price)
+    clear()
     print("""
+    Balance:            %i€
     Company Value:      %i€
-    Average sell price: %i€""" % (company_value, avg_sell_price))
+    Average sell price: %i€""" % (capital, company_value, avg_sell_price))
+    input("Press Enter to continue...")
