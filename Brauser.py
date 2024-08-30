@@ -156,7 +156,6 @@ Current Balance: %i€
         break
     capital += total_production * sell_value
     current_round += 1
-    print(list_sell_price)
     print(str(current_round) + ". " + str(capital))
 
     # Score
