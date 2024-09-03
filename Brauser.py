@@ -27,6 +27,7 @@ amount_excellence = 0
 capital = 100000
 current_round = 0
 sell_value = 1000
+actual_production = 0
 
 # Clear Console
 def clear():
@@ -39,14 +40,14 @@ while current_round != max_rounds:
     # Buy round
     clear()
     loop_buy = 1
-    while loop_buy == 1:
+    while True:
 
         amount_workers = amount_standard + amount_economy + amount_excellence
         total_price_workers = amount_workers * worker_cost
-        total_production_cost = (amount_standard * standard_production + amount_economy * economy_production + amount_excellence * excellence_production) * pr_pallet
+        total_production_cost = actual_production * pr_pallet
         total_production = amount_standard * standard_production + amount_economy * economy_production + amount_excellence * excellence_production
         prognosed_costs = rent + total_price_workers + total_production_cost
-        prognosed_profit = total_production * sell_value - prognosed_costs
+        prognosed_profit = actual_production * sell_value - prognosed_costs
 
         action = int(input("""
 ####################
@@ -56,7 +57,8 @@ Current Balance: %i€
 1. Buy a machine
 2. Set sell Value
 3. Show Statistics
-4. Next Round 
+4. Set Production
+5. Next Round 
 
 ####################
 """ %capital))
@@ -79,6 +81,7 @@ Current Balance: %i€
                 if capital >= standard_price and capital - standard_price >= prognosed_costs + worker_cost + standard_production * pr_pallet:
                     capital -= standard_price
                     amount_standard += 1
+                    actual_production += 10
                     input("Press Enter to continue...")
                     clear()
                 elif capital - standard_price <= prognosed_costs + worker_cost + standard_production * pr_pallet:
@@ -94,6 +97,7 @@ Current Balance: %i€
                 if capital >= economy_price and capital - economy_price >= prognosed_costs + worker_cost + economy_production * pr_pallet:
                     capital -= economy_price
                     amount_economy += 1
+                    actual_production += 15
                     clear()
                 elif capital - economy_price <= prognosed_costs + worker_cost + economy_production * pr_pallet:
                     print("You are not able to maintain this machine with the available funds!")
@@ -108,6 +112,7 @@ Current Balance: %i€
                 if capital >= excellence_price and capital - excellence_price >= prognosed_costs + worker_cost + excellence_production * pr_pallet:
                     capital -= excellence_price
                     amount_excellence += 1
+                    actual_production += 20
                 elif capital - excellence_price <= prognosed_costs + worker_cost + excellence_production * pr_pallet:
                     print("You are not able to maintain this machine with the available funds!")
                     input("Press Enter to continue...")
@@ -141,24 +146,35 @@ Current Balance: %i€
             Production Expenses: %i€
             Prognosed Costs: %i€
 
-            Total Production: %i Pallets
+            Maximal Production: %i Pallets
+            Current Production: %i Pallets
             Sell Value: %i€
             Prognosed Profit: %i€
 
             ####################
-            """ % (amount_standard, amount_economy, amount_excellence, rent, total_price_workers, total_production_cost, prognosed_costs, total_production, sell_value, prognosed_profit))
+            """ % (amount_standard, amount_economy, amount_excellence, rent, total_price_workers, total_production_cost, prognosed_costs, total_production, actual_production, sell_value, prognosed_profit))
             input("Press Enter to continue...")
             clear()
 
         elif action == 4:
-            loop_buy = 0
+            print("Current maximum production output: %i" % total_production)
+            while True:
+                print("Enter new production amount (0 - %i):" % total_production)
+                actual_production = int(input())
+                if actual_production >= 0 and actual_production <= total_production:
+                    break                               # Success
+                else:
+                    print("Invalid Value")
+
+        elif action == 5:
+            break
 
     # Production round
     capital -= rent + total_price_workers + total_production_cost
     if capital < 0:
         print("haha loser, you're bankrupt")
         break
-    capital += total_production * sell_value
+    capital += actual_production * sell_value
     current_round += 1
     print(str(current_round) + ". " + str(capital))
 
