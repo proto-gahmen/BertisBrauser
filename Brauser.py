@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 
+import platform
 import statistics
 import os
 
 # Money constants
 pr_pallet = 1000                                        # Producion cost per pallet    
-worker_cost = 4000                                        # Price per worker per Round
+worker_cost = 4000                                      # Price per worker per Round
 rent = 5000                                             # Rent per Round
 
 # Machines constants
@@ -29,7 +30,10 @@ sell_value = 1000
 
 # Clear Console
 def clear():
-    os.system("clear")
+    if platform.system() == "Linux":
+        os.system("clear")
+    elif platform.system() == "Windows":
+        os.system("cls")
 
 while current_round != max_rounds:
     # Buy round
