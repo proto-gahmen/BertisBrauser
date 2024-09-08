@@ -78,49 +78,25 @@ Current Balance: %i€
         """))
 
             if buy_select_machine == 1:
-                if capital >= standard_price and capital - standard_price >= prognosed_costs + worker_cost + standard_production * pr_pallet:
-                    capital -= standard_price
-                    amount_standard += 1
-                    actual_production += 10
-                    input("Press Enter to continue...")
-                    clear()
-                elif capital - standard_price <= prognosed_costs + worker_cost + standard_production * pr_pallet:
-                    print("You are not able to maintain this machine with the available funds!")
-                    input("Press Enter to continue...")
-                    clear()
-                elif capital <= standard_price:
-                    print("Insufficent funds!")
-                    input("Press Enter to continue...")
-                    clear()
+                capital -= standard_price
+                amount_standard += 1
+                actual_production += 10
+                input("Machine purchased\n Press ENTER to continue...")
+                clear()
 
             elif buy_select_machine == 2:
-                if capital >= economy_price and capital - economy_price >= prognosed_costs + worker_cost + economy_production * pr_pallet:
-                    capital -= economy_price
-                    amount_economy += 1
-                    actual_production += 15
-                    clear()
-                elif capital - economy_price <= prognosed_costs + worker_cost + economy_production * pr_pallet:
-                    print("You are not able to maintain this machine with the available funds!")
-                    input("Press Enter to continue...")
-                    clear()
-                elif capital <= economy_price:
-                    print("Insufficent funds!")
-                    input("Press Enter to continue...")
-                    clear()
+                capital -= economy_price
+                amount_economy += 1
+                actual_production += 15
+                input("Machine purchased\n Press ENTER to continue...")
+                clear()
     
             elif buy_select_machine == 3:
-                if capital >= excellence_price and capital - excellence_price >= prognosed_costs + worker_cost + excellence_production * pr_pallet:
-                    capital -= excellence_price
-                    amount_excellence += 1
-                    actual_production += 20
-                elif capital - excellence_price <= prognosed_costs + worker_cost + excellence_production * pr_pallet:
-                    print("You are not able to maintain this machine with the available funds!")
-                    input("Press Enter to continue...")
-                    clear()
-                elif capital <= excellence_price:
-                    print("Insufficent funds!")
-                    input("Press Enter to continue...")
-                    clear()
+                capital -= excellence_price
+                amount_excellence += 1
+                actual_production += 20
+                input("Machine purchased\n Press ENTER to continue...")
+                clear()
 
             elif buy_select_machine == 4:
                 pass
@@ -171,10 +147,10 @@ Current Balance: %i€
 
     # Production round
     capital -= rent + total_price_workers + total_production_cost
-    if capital < 0:
-        print("haha loser, you're bankrupt")
-        break
     capital += actual_production * sell_value
+    if capital < 0:
+        print("you're bankrupt")
+        break
     current_round += 1
     print(str(current_round) + ". " + str(capital))
 
