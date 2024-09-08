@@ -147,12 +147,6 @@ Current Balance: %i€
 
     # Production round
     capital -= rent + total_price_workers + total_production_cost
-<<<<<<< HEAD
-=======
-    if capital < 0:
-        print("bankrupt")
-        break
->>>>>>> refs/remotes/origin/main
     capital += actual_production * sell_value
     if capital < 0:
         print("you're bankrupt")
