@@ -4,12 +4,14 @@ import platform
 import statistics
 import os
 
-# Money constants
+# Values
+# Money values
 pr_pallet = 1000                                        # Producion cost per pallet    
 worker_cost = 4000                                      # Price per worker per Round
 rent = 5000                                             # Rent per Round
+material_cost = 1000
 
-# Machines constants
+# Machines values
 standard_price = 20000                                  # Price/Value
 standard_production = 10                                # Production output in pallets
 economy_price = 30000                                   # Price/Value
@@ -29,6 +31,7 @@ current_round = 0
 sell_value = 1000
 actual_production = 0
 
+# Functions
 # Clear Console
 def clear():
     if platform.system() == "Linux":
@@ -36,6 +39,79 @@ def clear():
     elif platform.system() == "Windows":
         os.system("cls")
 
+# List members
+def list_members():
+    counter = 0
+    for i in members:
+        counter += 1
+        print(counter, ". ", i )
+
+# Setups
+# Members setup
+clear()
+members = []
+while True:
+    clear()
+    print("Members:")
+    if not members:
+        print("Empty")
+    else:
+        list_members()
+    memb_setup = int(input("""
+####################
+
+Company Setup:
+
+1. Add a new member
+2. Remove a member
+3. Finish setup
+
+####################
+> """))
+    if memb_setup == 1:
+        clear()
+        add_member = input("Enter a name: ")
+        members.append(add_member)
+        print(members,"\n")
+    elif memb_setup == 2:
+        clear()
+        list_members()
+        member_rm = int(input("Remove a member: "))
+        member_rm -= 1
+        members.pop(member_rm)
+    elif memb_setup == 3:
+        break
+    else:
+        print("Invalid!")
+
+# Select a Leader
+clear()
+list_members()
+member_leader_select = int(input("Select a spokesperson: "))
+member_leader_select -= 1
+member_leader = members[member_leader_select]
+print("The spokesperson is:", member_leader)
+input("Press ENTER to continue...")
+
+# Company Setup
+clear()
+company_name = input("Enter a company name: ")
+product_name = input("Enter product name: ")
+taste_name = input("Enter a taste: ")
+slogan = input("Enter a slogan: ")
+input("Press ENTER to continue...")
+
+# Company presentation
+clear()
+print("Company name:            ", company_name)
+print("Members:                 ", )
+print("Company spokesperson:    ", member_leader)
+print("Product name:            ", product_name)
+print("Taste name:              ", taste_name)
+print(slogan)
+input("\n Press ENTER to continue...")
+
+# Main game
 while current_round != max_rounds:
     # Buy round
     clear()
@@ -44,7 +120,7 @@ while current_round != max_rounds:
 
         amount_workers = amount_standard + amount_economy + amount_excellence
         total_price_workers = amount_workers * worker_cost
-        total_production_cost = actual_production * pr_pallet
+        total_production_cost = actual_production * pr_pallet + actual_production * material_cost
         total_production = amount_standard * standard_production + amount_economy * economy_production + amount_excellence * excellence_production
         prognosed_costs = rent + total_price_workers + total_production_cost
         prognosed_profit = actual_production * sell_value - prognosed_costs
@@ -61,7 +137,7 @@ Current Balance: %i€
 5. Next Round 
 
 ####################
-""" %capital))
+> """ %capital))
         clear()
 
         if action == 1:
@@ -75,7 +151,7 @@ Current Balance: %i€
         4. Cancel
 
         ####################
-        """))
+        > """))
 
             if buy_select_machine == 1:
                 capital -= standard_price
@@ -119,7 +195,7 @@ Current Balance: %i€
 
             Rent: %i€
             Worker Expenses: %i€
-            Production Expenses: %i€
+            Total Production Expenses (Material Expenses + Production Costs): %i€
             Prognosed Costs: %i€
 
             Maximal Production: %i Pallets
